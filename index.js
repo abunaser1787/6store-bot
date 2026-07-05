@@ -5,7 +5,7 @@ const path = require('path');
 
 const OWNER_ID = '699208033921794168'; 
 
-const dbPath = path.resolve(__dirname, '6store.db');
+const dbPath = path.resolve(__dirname, '6storee.db');
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
