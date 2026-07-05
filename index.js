@@ -96,7 +96,7 @@ function buildShopComponents(rows, isOwner = false) {
     return components;
 }
 
-// دالة التحديث الديناميكي للمتجر مع الترحيب الفخم
+// دالة التحديث الديناميكي للمتجر مع الترحيب الفخم والصورة الجديدة
 async function updatePermanentShop(guild) {
     db.get(`SELECT * FROM shop_msg WHERE guildId = ?`, [guild.id], (err, config) => {
         if (err || !config) return;
@@ -111,12 +111,12 @@ async function updatePermanentShop(guild) {
                 const message = await channel.messages.fetch(config.messageId).catch(() => null);
                 if (!message) return;
 
-                // تصميم الترحيب الفخم باستخدام Markdown المدعوم في ديسكورد
+                // تصميم الترحيب الفخم باستخدام الصورة التي طلبتها
                 const embed = new EmbedBuilder()
                     .setColor('#FFD700') // لون ذهبي فخم
                     .setTitle('▬▬▬▭ 𝟔𝒔𝒕𝒐𝒓𝒆 𝑴𝒂𝒓𝒌𝒆𝒕 ▭▬▬▬')
                     .setDescription('# ✨ أهـلاً بـك فـي مـتـجـر 6store ✨\n## 🛒 الـوجـهـة الأولـى لـخـدمـاتـك الـرقـمـيـة\n\n> 🛍️ **تصفح الخيارات المتاحة بالأسفل واضغط على زر المنتج للشراء المباشر بالعملات المجمعة في حسابك.**\n\n**⚠️ ملاحظة هامة:** سيتم فتح تذكرة تسليم خاصة بك تلقائياً عند الضغط على زر الشراء.')
-                    .setImage('https://i.imgur.com/qKOnkQp.png') // خط فاصل جميل (اختياري)
+                    .setImage('https://g.top4top.io/p_3838l83g81.png') // الصورة الجديدة هنا
                     .setFooter({ text: 'نتمنى لك تسوقاً ممتعاً 🤍', iconURL: guild.iconURL() });
 
                 if (rows.length === 0) {
@@ -196,7 +196,7 @@ client.on('interactionCreate', async interaction => {
         if (interaction.commandName === 'setup-shop') {
             await interaction.reply({ content: '⏳ جاري إعداد وتثبيت المتجر...', flags: [MessageFlags.Ephemeral] });
             
-            // نرسل رسالة مؤقتة ليتم استبدالها لاحقاً بالتصميم الفخم
+            // نرسل رسالة مؤقتة ليتم استبدالها لاحقاً بالتصميم الفخم والصورة
             const shopMessage = await interaction.channel.send({ content: 'جاري تحميل واجهة المتجر...' });
             
             db.run(`INSERT OR REPLACE INTO shop_msg (guildId, channelId, messageId) VALUES (?, ?, ?)`, 
